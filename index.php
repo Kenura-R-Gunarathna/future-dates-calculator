@@ -1,35 +1,8 @@
 <?php
 
-function nextPaymentDate( $database_retrieved_date, $adding_years, $adding_months, $adding_dates, $precision ){
-
-  // ------------------------------- Adding the dates before calculation -----------------------------------------
-
-  // Retrieve the day number from the given previous date.
-  $database_retrieved_day = date("d", strtotime($database_retrieved_date));
-
-  // Retrieve the month number from the given previous date.
-  $database_retrieved_month = date("m", strtotime($database_retrieved_date));
-
-  // Retrieve the year number from the given previous date.
-  $database_retrieved_year = date("Y", strtotime($database_retrieved_date));
+function nextPaymentDate( $database_retrieved_date, $adding_years, $adding_months, $precision ){
 
   // ------------------------------------------------------------------------
-
-  $total_dates = $database_retrieved_day + $adding_dates;
-
-  // Retrieve the H:i:s from the given previous date.
-  $database_retrieved_time = date("H:i:s", strtotime($database_retrieved_date));
-
-  $last_date_of_next_generated_month = date("t", strtotime($database_retrieved_date));
-
-  $next_month_dates = fmod($total_dates, $last_date_of_next_generated_month);
-
-  // Replase given date with added dates.
-  $database_retrieved_date = date("Y-m-d H:i:s", strtotime($database_retrieved_year."-".$database_retrieved_month."-".$next_month_dates." ".$database_retrieved_time));
-
-  $adding_months =+ intdiv($total_dates, $last_date_of_next_generated_month);
-
-  // -------------------------------- Start calculating months and years ----------------------------------------
 
   // Retrieve the seconds number from the given previous date.
   $database_retrieved_seconds = date("s", strtotime($database_retrieved_date));
@@ -50,9 +23,6 @@ function nextPaymentDate( $database_retrieved_date, $adding_years, $adding_month
   $database_retrieved_year = date("Y", strtotime($database_retrieved_date));
 
   // ------------------------------------------------------------------------
-
-  // Get the next day number.
-  $database_generated_next_day = null;
 
   // Get the next month number.
   $database_generated_next_month = null;
@@ -97,7 +67,7 @@ function nextPaymentDate( $database_retrieved_date, $adding_years, $adding_month
 
     }else{
 
-        $last_date_of_next_generated_month = date("t", strtotime($database_generated_next_year."-".$database_generated_next_month."-1"));
+      $last_date_of_next_generated_month = date("t", strtotime($database_generated_next_year."-".$database_generated_next_month."-1"));
 
       // Generated next month (can be errors in the days)
       $database_generated_next_date = date("Y-m-d H:i:s", strtotime($database_generated_next_year."-".$database_generated_next_month."-".$last_date_of_next_generated_month." 00:00:00"));
@@ -106,6 +76,45 @@ function nextPaymentDate( $database_retrieved_date, $adding_years, $adding_month
   }
   
   return $database_generated_next_date;
+
+}
+
+function nextPaymentDay( $database_retrieved_date, $adding_dates, $precision ){
+
+  // ------------------------------------------------------------------------
+
+  // Retrieve the day number from the given previous date.
+  $database_retrieved_day = date("d", strtotime($database_retrieved_date));
+
+  // Retrieve the month number from the given previous date.
+  $database_retrieved_month = date("m", strtotime($database_retrieved_date));
+
+  // Retrieve the year number from the given previous date.
+  $database_retrieved_year = date("Y", strtotime($database_retrieved_date));
+
+  // Retrieve the H:i:s from the given previous date.
+  $database_retrieved_time = date("H:i:s", strtotime($database_retrieved_date));
+
+  // ------------------------------------------------------------------------
+
+  $total_dates = $database_retrieved_day + $adding_dates;
+
+  $last_date_of_next_generated_month = date("t", strtotime($database_retrieved_date));
+
+  $adding_months = intdiv($total_dates, $last_date_of_next_generated_month);
+
+  $next_month_dates = fmod($total_dates, $last_date_of_next_generated_month);
+  
+  // Replase given date with added dates.
+  $database_generated_next_day = date("Y-m-d H:i:s", strtotime($database_retrieved_year."-".$database_retrieved_month."-".$next_month_dates." ".$database_retrieved_time));
+
+  if($adding_months > 0){
+
+    $database_generated_next_day = nextPaymentDate( $database_generated_next_day, 0, $adding_months, $precision );
+
+  }
+
+  return $database_generated_next_day;
 
 }
 
@@ -118,14 +127,16 @@ $adding_years = 0;
 $adding_months = 0;
 
 // Number of dates adding.
-$adding_dates = 10;
+$adding_dates = 50;
 
 $precision = 0;
 
 // Previous month.
-$database_retrieved_date = "2023-8-31 14:38:25";
+$database_retrieved_date = "2024-2-20 14:38:25";
 
-$next_payment_date = nextPaymentDate( $database_retrieved_date, $adding_years, $adding_months, $adding_dates, $precision );
+// $next_payment_date = nextPaymentDate( $database_retrieved_date, $adding_years, $adding_months, $precision );
 
-echo $next_payment_date;
+// echo $next_payment_date;
+
+echo nextPaymentDay( $database_retrieved_date, $adding_dates, $precision );
 
