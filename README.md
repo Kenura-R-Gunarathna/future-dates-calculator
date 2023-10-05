@@ -4,11 +4,11 @@ PHP based month calculator. This will be usefull in salary calculators, to contr
 
 Use both `nextPaymentDay()` function and `nextPaymentDate()` functions seperately. Because it can cause problems with the final date since both methods use different logics.
 
-Where 
+Where,
 
-1. nextPaymentDay() - Goes throught each and every month and add the dates according to the maximum dates in each month.
+1. [`nextPaymentDay()`](#addition-of-dates) - Goes throught each and every month and add the dates according to the maximum dates in each month.
 
-2. nextPaymentDate() - Simply add the months and years. The output date also will be changed is the given dates like 29, 30, 31 which do exist in some and do not exist in some months. so in those conditions the maximum date of the obtained month will be shown.
+2. [`nextPaymentDate()`](#addition-of-months-and-years) - Simply add the months and years. The output date also will be changed is the given dates like 29, 30, 31 which do exist in some and do not exist in some months. so in those conditions the maximum date of the obtained month will be shown.
 
 ## Addition of dates
 
@@ -50,4 +50,9 @@ $next_payment_date = nextPaymentDate( $database_retrieved_date, $adding_years, $
 
 echo $next_payment_date;
 ```
+
+## Output
+
+<img src="./reference.png" width="100%">
+
 @Thank you, Kenura R.Gunarathna
