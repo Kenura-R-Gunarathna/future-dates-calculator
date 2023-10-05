@@ -1,6 +1,6 @@
 <?php
 
-function nextPaymentDate( $database_retrieved_date, $adding_months, $precision ){
+function nextPaymentDate( $database_retrieved_date, $adding_years, $adding_months, $adding_dates, $precision ){
 
   // ------------------------------------------------------------------------
 
@@ -24,6 +24,9 @@ function nextPaymentDate( $database_retrieved_date, $adding_months, $precision )
 
   // ------------------------------------------------------------------------
 
+  // Get the next day number.
+  $database_generated_next_day = null;
+
   // Get the next month number.
   $database_generated_next_month = null;
 
@@ -33,11 +36,11 @@ function nextPaymentDate( $database_retrieved_date, $adding_months, $precision )
   if(($database_retrieved_month + $adding_months) > 12){
 
       $database_generated_next_month = fmod(($database_retrieved_month + $adding_months), 12);
-      $database_generated_next_year = $database_retrieved_year + 1;
+      $database_generated_next_year = $database_retrieved_year + $adding_years + 1;
   }else{
 
       $database_generated_next_month = $database_retrieved_month + $adding_months;
-      $database_generated_next_year = $database_retrieved_year;
+      $database_generated_next_year = $database_retrieved_year + $adding_years;
   }
 
   // Add seconds, minutes and hours if $precision = 1.
@@ -80,15 +83,21 @@ function nextPaymentDate( $database_retrieved_date, $adding_months, $precision )
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// Number of years adding.
+$adding_years = 0;
+
 // Number of months adding.
-$adding_months = 2;
+$adding_months = 0;
+
+// Number of dates adding.
+$adding_dates = 10;
 
 $precision = 0;
 
 // Previous month.
 $database_retrieved_date = "2023-8-31 14:38:25";
 
-$next_payment_date = nextPaymentDate( $database_retrieved_date, $adding_months, $precision );
+$next_payment_date = nextPaymentDate( $database_retrieved_date, $adding_years, $adding_months, $adding_dates, $precision );
 
 echo $next_payment_date;
 
