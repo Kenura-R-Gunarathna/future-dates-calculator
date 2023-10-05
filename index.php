@@ -80,7 +80,7 @@ function nextPaymentDate( $database_retrieved_date, $adding_months, $precision )
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// Number of month adding.
+// Number of months adding.
 $adding_months = 2;
 
 $precision = 0;
