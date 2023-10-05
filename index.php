@@ -118,25 +118,48 @@ function nextPaymentDay( $database_retrieved_date, $adding_dates, $precision ){
 
 }
 
-// ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// Number of years adding.
-$adding_years = 0;
 
-// Number of months adding.
-$adding_months = 0;
+
+// Addition of days ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+echo "<h3>Addition of days</h3>";
 
 // Number of dates adding.
 $adding_dates = 50;
 
+// If precision = 1 it will also show the hours:minutes:seconds also.
 $precision = 0;
 
 // Previous month.
 $database_retrieved_date = "2024-2-20 14:38:25";
 
-// $next_payment_date = nextPaymentDate( $database_retrieved_date, $adding_years, $adding_months, $precision );
+$next_payment_date = nextPaymentDay( $database_retrieved_date, $adding_dates, $precision );
 
-// echo $next_payment_date;
+echo $next_payment_date;
 
-echo nextPaymentDay( $database_retrieved_date, $adding_dates, $precision );
 
+
+echo "<hr width='100%' noshade>";
+
+
+
+// Addition of months and years ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+echo "<h3>Addition of months and years</h3>";
+
+// Number of years adding.
+$adding_years = 0;
+
+// Number of months adding.
+$adding_months = 2;
+
+// If precision = 1 it will also show the hours:minutes:seconds also.
+$precision = 0;
+
+// Previous month.
+$database_retrieved_date = "2023-8-31 14:38:25";
+
+$next_payment_date = nextPaymentDate( $database_retrieved_date, $adding_years, $adding_months, $precision );
+
+echo $next_payment_date;
