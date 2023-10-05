@@ -5,6 +5,8 @@ PHP based month calculator. This will be usefull in salary calculators, to contr
 Currently this only supportive for months calculations only.
 
 ```
+<?php
+
 // Number of months adding.
 $adding_months = 2;
 
@@ -17,4 +19,10 @@ $database_retrieved_date = "2023-8-31 14:38:25";
 $next_payment_date = nextPaymentDate( $database_retrieved_date, $adding_months, $precision );
 
 echo $next_payment_date;
+```
+
+Response
+
+```
+2023-10-31 14:38:25
 ```
