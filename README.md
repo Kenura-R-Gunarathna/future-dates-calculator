@@ -1,6 +1,6 @@
 # Future dates calculator
 
-This is a pure php based month calculator. This will be usefull in salary calculators, to controll cron jobs using php, subscriptions, notifications and emails.
+PHP based month calculator. This will be usefull in salary calculators, to controll cron jobs using php, subscriptions, notifications and emails.
 
 Currently this only supportive for months calculations only.
 
