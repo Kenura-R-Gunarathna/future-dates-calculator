@@ -88,10 +88,6 @@ $precision = 0;
 // Previous month.
 $database_retrieved_date = "2023-8-31 14:38:25";
 
-// Today value.
-$today = date("Y-m-d h:i:sa", strtotime("2023-9-30"));
-
-
 $next_payment_date = nextPaymentDate( $database_retrieved_date, $adding_months, $precision );
 
 echo $next_payment_date;
